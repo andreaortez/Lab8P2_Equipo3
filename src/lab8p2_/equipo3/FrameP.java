@@ -265,15 +265,37 @@ public class FrameP extends javax.swing.JFrame {
                 tf_nombre.setText("");
                 sp_poder.setValue(1);
                 tf_año.setText("");
+                cb_raza.setSelectedIndex(1);
 
                 JOptionPane.showMessageDialog(this, "Alumno agregado con éxito");
             } catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Ocurrió un error y no se guardaron los datos");
             }
-
         } else {
+            int index1 = cb_universo.getSelectedIndex();
+            int index2 = cb_sv.getSelectedIndex();
+            
+            if (rootPaneCheckingEnabled) {
+                
+            }
+            
+            for (Universo un : au.getListaUniverso()) {
+                for (SerVivo ser : un.getSeres()) {
+                    modelo.addElement(ser);
+                }
+            }
 
+            ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).setNombre(tf_nombre.getText());
+            ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).setPoder(Integer.parseInt(sp_poder.getValue().toString()));
+            ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).setYear(Integer.parseInt(tf_año.getText()));
+            ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).setProcedencia(Integer.parseInt(tf_año.getText()));
+            au.escribirArchivo();
+
+            tf_nombreR2.setText("");
+            tf_usuarioR2.setText("");
+            tf_contraseñaR2.setText("");
+            JOptionPane.showMessageDialog(jd_administrarR, "Usuario Registro modificado con éxito");
         }
     }//GEN-LAST:event_bt_cmMouseClicked
 
@@ -309,6 +331,8 @@ public class FrameP extends javax.swing.JFrame {
         String nombre = JOptionPane.showInputDialog("Ingrese nombre del nuevo universo");
         au.setUniverso(new Universo(nombre));
         au.escribirArchivo();
+
+        JOptionPane.showConfirmDialog(this, "Universo agregado con éxito");
     }//GEN-LAST:event_bt_agregarUMouseClicked
 
     private void bt_eliminarSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_eliminarSVMouseClicked
@@ -322,12 +346,21 @@ public class FrameP extends javax.swing.JFrame {
     }//GEN-LAST:event_cb_universoItemStateChanged
 
     private void cb_svItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_svItemStateChanged
-        // TODO add your handling code here:
+        SerVivo s = (SerVivo) cb_sv.getSelectedItem();
+        tf_nombre.setText(s.getNombre());
+        sp_poder.setValue(s.getPoder());
+        tf_año.setText(String.valueOf(s.getYear()));
+        cb_raza.setSelectedItem(s.getRaza());
     }//GEN-LAST:event_cb_svItemStateChanged
 
     private void bt_modificarSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modificarSVMouseClicked
         sv.setVisible(true);
         cb_sv.setVisible(true);
+        bt_cm.setText("Modificar");
+        
+        ListarCB(1);
+        ListarCB(2);
+        pn_agregar.setVisible(true);
     }//GEN-LAST:event_bt_modificarSVMouseClicked
 
     public static void main(String args[]) {
@@ -397,9 +430,10 @@ public class FrameP extends javax.swing.JFrame {
             DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_sv.getModel();
             modelo.removeAllElements();
 
-            Universo u = (Universo) cb_universo.getSelectedItem();
-            for (SerVivo s : u.getSeres()) {
-                modelo.addElement(s);
+            for (Universo un : au.getListaUniverso()) {
+                for (SerVivo ser : un.getSeres()) {
+                    modelo.addElement(ser);
+                }
             }
 
             cb_sv.setModel(modelo);
@@ -409,7 +443,9 @@ public class FrameP extends javax.swing.JFrame {
 
     private int ID() {
         for (Universo u : au.getListaUniverso()) {
-            ID = u.getSeres().size() + 1;
+            if (!u.getSeres().isEmpty()) {
+                ID = u.getSeres().size()-1;
+            }
         }
         return ID;
     }
