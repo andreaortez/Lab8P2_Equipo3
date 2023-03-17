@@ -45,4 +45,48 @@ public class Dba {
            e.printStackTrace();
        }
     }
+    
+    /**
+     * MAIN METHOD
+     *  Dba db = new Dba("./lab8.mdb");
+     *  
+     * 
+     * 
+     *bt_agregarUMouseClicked
+     * despues de EscribirArchivo()
+     * db.conectar();
+        try {
+            
+            db.query.execute("INSERT INTO Universo"
+                    + " (Nombre,# Seres Vivos)"
+                    + " VALUES ('" + nombre + "', '" + "" + "')");
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+     * 
+     * 
+     * 
+     * 
+     *bt_cmMouseClicked
+     * despues de au.escribirarchivo();
+     * try {
+            
+            db.query.execute("INSERT INTO Seres Vivos"
+                    + " (Nombre,Poder,Años,Universo,Raza)"
+                    + " VALUES ('" + tf_nombre.getText() + "', '" + Integer.parseInt(sp_poder.getValue().toString()) 
+                    * + "', '" + Integer.parseInt(tf_año.getText()) + "', '" + cb_universo.getSelectedItem().toString() 
+                    * + "', '" + cb_raza.getSelectedItem().toString() + "')");
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+     * 
+     * 
+     * 
+     */
+    
+    
 }
