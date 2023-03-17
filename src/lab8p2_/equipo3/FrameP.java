@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 public class FrameP extends javax.swing.JFrame {
 
     admUniverso au = new admUniverso("./universos.a&t");
-    Dba db = new Dba("./lab8.mdb");
+    Dba db = new Dba("./lab8.accdb");
 
     int ID = 0;
 
@@ -108,16 +108,28 @@ public class FrameP extends javax.swing.JFrame {
         });
         jPanel2.add(bt_agregarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 31, -1, -1));
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("-----------------------------------------");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 200, -1));
 
         bt_modificarU.setText("Modificar Universo");
+        bt_modificarU.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_modificarUMouseClicked(evt);
+            }
+        });
         jPanel2.add(bt_modificarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         bt_eliminarU.setText("Eliminar Universo");
+        bt_eliminarU.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_eliminarUMouseClicked(evt);
+            }
+        });
         jPanel2.add(bt_eliminarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("-----------------------------------------");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 394, 200, -1));
@@ -194,11 +206,6 @@ public class FrameP extends javax.swing.JFrame {
         cb1.setText("Universo");
         pn_agregar.add(cb1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 85, -1));
 
-        cb_universo1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cb_universo1ItemStateChanged(evt);
-            }
-        });
         pn_agregar.add(cb_universo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 380, 158, -1));
 
         jPanel1.add(pn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 600, 500));
@@ -379,7 +386,7 @@ public class FrameP extends javax.swing.JFrame {
         }
         db.desconectar();
 
-        JOptionPane.showConfirmDialog(this, "Universo agregado con éxito");
+        JOptionPane.showMessageDialog(this, "Universo agregado con éxito");
     }//GEN-LAST:event_bt_agregarUMouseClicked
 
     private void bt_eliminarSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_eliminarSVMouseClicked
@@ -413,9 +420,23 @@ public class FrameP extends javax.swing.JFrame {
         pn_agregar.setVisible(true);
     }//GEN-LAST:event_bt_modificarSVMouseClicked
 
-    private void cb_universo1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_universo1ItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cb_universo1ItemStateChanged
+    private void bt_modificarUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modificarUMouseClicked
+        int pos = Integer.parseInt(JOptionPane.showInputDialog(ListarUniversos() + "Ingrese posición del universo a modificar"));
+
+        String nombre = JOptionPane.showInputDialog("Ingrese nuevo nombre del universo");
+
+        au.getListaUniverso().get(pos).setNombre(nombre);
+
+        JOptionPane.showMessageDialog(this, "Universo modificado éxitosamente");
+    }//GEN-LAST:event_bt_modificarUMouseClicked
+
+    private void bt_eliminarUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_eliminarUMouseClicked
+        int pos = Integer.parseInt(JOptionPane.showInputDialog(ListarUniversos() + "Ingrese posición del universo a eliminar"));
+
+        au.getListaUniverso().remove(pos);
+
+        JOptionPane.showMessageDialog(this, "Universo eliminado éxitosamente");
+    }//GEN-LAST:event_bt_eliminarUMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -447,6 +468,16 @@ public class FrameP extends javax.swing.JFrame {
                 new FrameP().setVisible(true);
             }
         });
+    }
+
+    private String ListarUniversos() {
+        String cad = "";
+        int cont = 0;
+        for (Universo u : au.getListaUniverso()) {
+            cad += cont + " - " + u.getNombre() + "\n";
+        }
+
+        return cad;
     }
 
     private void ListarTabla() {
