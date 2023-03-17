@@ -34,7 +34,7 @@ public class Universo {
 
     @Override
     public String toString() {
-        return "Universo{" + "nombre=" + nombre + ", seres=" + seres + '}';
+        return nombre;
     }
     
 }

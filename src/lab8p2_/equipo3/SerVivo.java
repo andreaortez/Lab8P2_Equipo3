@@ -71,7 +71,7 @@ public class SerVivo {
 
     @Override
     public String toString() {
-        return "SerVivo{" + "nombre=" + nombre + ", ID=" + ID + ", poder=" + poder + ", year=" + year + ", procedencia=" + procedencia + ", raza=" + raza + '}';
+        return nombre;
     }
     
     
