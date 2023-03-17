@@ -1,10 +1,11 @@
 
 package lab8p2_.equipo3;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Universo {
+public class Universo implements Serializable{
     private String nombre; 
     private ArrayList<SerVivo> seres = new ArrayList();
 

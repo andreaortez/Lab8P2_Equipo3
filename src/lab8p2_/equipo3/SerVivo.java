@@ -1,7 +1,9 @@
 
 package lab8p2_.equipo3;
 
-public class SerVivo {
+import java.io.Serializable;
+
+public class SerVivo implements Serializable{
     private String nombre; 
     private int ID; 
     private int poder; 
