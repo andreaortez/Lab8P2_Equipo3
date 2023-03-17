@@ -5,10 +5,14 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
 public class FrameP extends javax.swing.JFrame {
 
     admUniverso au = new admUniverso("./universos.a&t");
+    Dba db = new Dba("./lab8.mdb");
+
     int ID = 0;
 
     public FrameP() {
@@ -37,8 +41,8 @@ public class FrameP extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         bt_agregarU = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        bt_modificarU = new javax.swing.JButton();
+        bt_eliminarU = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         pn_agregar = new javax.swing.JPanel();
         cb_universo = new javax.swing.JComboBox<>();
@@ -67,6 +71,7 @@ public class FrameP extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         bt_agregarSV.setText("Agregar Ser Vivo");
         bt_agregarSV.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -74,6 +79,7 @@ public class FrameP extends javax.swing.JFrame {
                 bt_agregarSVMouseClicked(evt);
             }
         });
+        jPanel2.add(bt_agregarSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 218, -1, -1));
 
         bt_modificarSV.setText("Modificar Ser Vivo");
         bt_modificarSV.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -81,6 +87,7 @@ public class FrameP extends javax.swing.JFrame {
                 bt_modificarSVMouseClicked(evt);
             }
         });
+        jPanel2.add(bt_modificarSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 274, -1, -1));
 
         bt_eliminarSV.setText("Eliminar Ser Vivo");
         bt_eliminarSV.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -88,8 +95,10 @@ public class FrameP extends javax.swing.JFrame {
                 bt_eliminarSVMouseClicked(evt);
             }
         });
+        jPanel2.add(bt_eliminarSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 339, -1, -1));
 
         jButton4.setText("Guardar");
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 437, -1, -1));
 
         bt_agregarU.setText("Agregar Universo");
         bt_agregarU.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -97,58 +106,21 @@ public class FrameP extends javax.swing.JFrame {
                 bt_agregarUMouseClicked(evt);
             }
         });
+        jPanel2.add(bt_agregarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 31, -1, -1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("-----------------------------------------");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 200, -1));
 
-        jButton1.setText("Modificar Universo");
+        bt_modificarU.setText("Modificar Universo");
+        jPanel2.add(bt_modificarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
-        jButton2.setText("Eliminar Universo");
+        bt_eliminarU.setText("Eliminar Universo");
+        jPanel2.add(bt_eliminarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("-----------------------------------------");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(bt_agregarSV)
-                    .addComponent(bt_modificarSV)
-                    .addComponent(bt_eliminarSV)
-                    .addComponent(jButton4)
-                    .addComponent(bt_agregarU)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(40, Short.MAX_VALUE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(bt_agregarU)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(13, 13, 13)
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addComponent(bt_agregarSV)
-                .addGap(39, 39, 39)
-                .addComponent(bt_modificarSV)
-                .addGap(54, 54, 54)
-                .addComponent(bt_eliminarSV)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(28, 28, 28)
-                .addComponent(jButton4)
-                .addGap(38, 38, 38))
-        );
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 394, 200, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 500));
 
@@ -326,7 +298,7 @@ public class FrameP extends javax.swing.JFrame {
                         index = i;
                     }
                 }
-                
+
                 int id = ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).getID();
 
                 au.getListaUniverso().get(index3).getSeres().add(new SerVivo(tf_nombre.getText(), id, Integer.parseInt(sp_poder.getValue().toString()),
@@ -341,6 +313,18 @@ public class FrameP extends javax.swing.JFrame {
             }
 
             au.escribirArchivo();
+
+            try {
+                db.query.execute("INSERT INTO Seres Vivos"
+                        + " (Nombre,Poder,Años,Universo,Raza)"
+                        + " VALUES ('" + tf_nombre.getText() + "', '" + Integer.parseInt(sp_poder.getValue().toString())
+                        + "', '" + Integer.valueOf(tf_año.getText()) + "', '" + cb_universo.getSelectedItem().toString()
+                        + "', '" + cb_raza.getSelectedItem().toString() + "')");
+                db.commit();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            db.desconectar();
 
             tf_nombre.setText("");
             sp_poder.setValue(1);
@@ -385,6 +369,15 @@ public class FrameP extends javax.swing.JFrame {
         String nombre = JOptionPane.showInputDialog("Ingrese nombre del nuevo universo");
         au.setUniverso(new Universo(nombre));
         au.escribirArchivo();
+
+        db.conectar();
+        try {
+            db.query.execute("INSERT INTO Universo" + " (Nombre,# Seres Vivos)" + " VALUES ('" + nombre + "', '" + "" + "')");
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
 
         JOptionPane.showConfirmDialog(this, "Universo agregado con éxito");
     }//GEN-LAST:event_bt_agregarUMouseClicked
@@ -517,15 +510,15 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JButton bt_cm;
     private javax.swing.JButton bt_eliminar;
     private javax.swing.JButton bt_eliminarSV;
+    private javax.swing.JButton bt_eliminarU;
     private javax.swing.JButton bt_modificarSV;
+    private javax.swing.JButton bt_modificarU;
     private javax.swing.JLabel cb;
     private javax.swing.JLabel cb1;
     private javax.swing.JComboBox<String> cb_raza;
     private javax.swing.JComboBox<String> cb_sv;
     private javax.swing.JComboBox<String> cb_universo;
     private javax.swing.JComboBox<String> cb_universo1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
