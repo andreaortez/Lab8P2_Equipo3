@@ -1,13 +1,78 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package lab8p2_.equipo3;
 
-/**
- *
- * @author Usuario Autorizado
- */
 public class SerVivo {
+    private String nombre; 
+    private int ID; 
+    private int poder; 
+    private int year; 
+    private String procedencia; 
+    private String raza; 
+
+    public SerVivo() {
+    }
+
+    public SerVivo(String nombre, int ID, int poder, int year, String procedencia, String raza) {
+        this.nombre = nombre;
+        this.ID = ID;
+        this.poder = poder;
+        this.year = year;
+        this.procedencia = procedencia;
+        this.raza = raza;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public int getPoder() {
+        return poder;
+    }
+
+    public void setPoder(int poder) {
+        this.poder = poder;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getProcedencia() {
+        return procedencia;
+    }
+
+    public void setProcedencia(String procedencia) {
+        this.procedencia = procedencia;
+    }
+
+    public String getRaza() {
+        return raza;
+    }
+
+    public void setRaza(String raza) {
+        this.raza = raza;
+    }
+
+    @Override
+    public String toString() {
+        return "SerVivo{" + "nombre=" + nombre + ", ID=" + ID + ", poder=" + poder + ", year=" + year + ", procedencia=" + procedencia + ", raza=" + raza + '}';
+    }
+    
     
 }
