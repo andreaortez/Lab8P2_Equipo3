@@ -36,6 +36,10 @@ public class FrameP extends javax.swing.JFrame {
         bt_eliminarSV = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         bt_agregarU = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         pn_agregar = new javax.swing.JPanel();
         cb_universo = new javax.swing.JComboBox<>();
         cb = new javax.swing.JLabel();
@@ -50,6 +54,8 @@ public class FrameP extends javax.swing.JFrame {
         bt_cm = new javax.swing.JButton();
         sv = new javax.swing.JLabel();
         cb_sv = new javax.swing.JComboBox<>();
+        cb1 = new javax.swing.JLabel();
+        cb_universo1 = new javax.swing.JComboBox<>();
         pn_eliminar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_servivos = new javax.swing.JTable();
@@ -92,6 +98,16 @@ public class FrameP extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("-----------------------------------------");
+
+        jButton1.setText("Modificar Universo");
+
+        jButton2.setText("Eliminar Universo");
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("-----------------------------------------");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -103,21 +119,33 @@ public class FrameP extends javax.swing.JFrame {
                     .addComponent(bt_modificarSV)
                     .addComponent(bt_eliminarSV)
                     .addComponent(jButton4)
-                    .addComponent(bt_agregarU))
-                .addContainerGap(41, Short.MAX_VALUE))
+                    .addComponent(bt_agregarU)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(40, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(bt_agregarU)
-                .addGap(72, 72, 72)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1)
+                .addGap(26, 26, 26)
                 .addComponent(bt_agregarSV)
-                .addGap(79, 79, 79)
+                .addGap(39, 39, 39)
                 .addComponent(bt_modificarSV)
-                .addGap(82, 82, 82)
+                .addGap(54, 54, 54)
                 .addComponent(bt_eliminarSV)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(28, 28, 28)
                 .addComponent(jButton4)
                 .addGap(38, 38, 38))
         );
@@ -187,6 +215,19 @@ public class FrameP extends javax.swing.JFrame {
             }
         });
         pn_agregar.add(cb_sv, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 158, -1));
+
+        cb1.setBackground(new java.awt.Color(0, 0, 0));
+        cb1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        cb1.setForeground(new java.awt.Color(0, 0, 0));
+        cb1.setText("Universo");
+        pn_agregar.add(cb1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 85, -1));
+
+        cb_universo1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_universo1ItemStateChanged(evt);
+            }
+        });
+        pn_agregar.add(cb_universo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 380, 158, -1));
 
         jPanel1.add(pn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 600, 500));
 
@@ -267,7 +308,7 @@ public class FrameP extends javax.swing.JFrame {
                 tf_año.setText("");
                 cb_raza.setSelectedIndex(1);
 
-                JOptionPane.showMessageDialog(this, "Alumno agregado con éxito");
+                JOptionPane.showMessageDialog(this, "Ser Vivo agregado con éxito");
             } catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Ocurrió un error y no se guardaron los datos");
@@ -275,27 +316,37 @@ public class FrameP extends javax.swing.JFrame {
         } else {
             int index1 = cb_universo.getSelectedIndex();
             int index2 = cb_sv.getSelectedIndex();
-            
-            if (rootPaneCheckingEnabled) {
-                
-            }
-            
-            for (Universo un : au.getListaUniverso()) {
-                for (SerVivo ser : un.getSeres()) {
-                    modelo.addElement(ser);
+            int index3 = cb_universo1.getSelectedIndex();
+
+            if (cb_universo.getSelectedItem() != cb_universo1.getSelectedItem()) {
+                int index = 0;
+
+                for (int i = 0; i < au.getListaUniverso().get(index1).getSeres().size(); i++) {
+                    if (((SerVivo) au.getListaUniverso().get(index1).getSeres().get(i)).getNombre().equals(cb_sv.getSelectedItem().toString())) {
+                        index = i;
+                    }
                 }
+                
+                int id = ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).getID();
+
+                au.getListaUniverso().get(index3).getSeres().add(new SerVivo(tf_nombre.getText(), id, Integer.parseInt(sp_poder.getValue().toString()),
+                        Integer.parseInt(tf_año.getText()), cb_universo1.getSelectedItem().toString(), cb_raza.getSelectedItem().toString()));
+                au.getListaUniverso().get(index1).getSeres().remove(index);
+
+            } else {
+                ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).setNombre(tf_nombre.getText());
+                ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).setPoder(Integer.parseInt(sp_poder.getValue().toString()));
+                ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).setYear(Integer.parseInt(tf_año.getText()));
+                ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).setRaza(cb_raza.getSelectedItem().toString());
             }
 
-            ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).setNombre(tf_nombre.getText());
-            ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).setPoder(Integer.parseInt(sp_poder.getValue().toString()));
-            ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).setYear(Integer.parseInt(tf_año.getText()));
-            ((SerVivo) au.getListaUniverso().get(index1).getSeres().get(index2)).setProcedencia(Integer.parseInt(tf_año.getText()));
             au.escribirArchivo();
 
-            tf_nombreR2.setText("");
-            tf_usuarioR2.setText("");
-            tf_contraseñaR2.setText("");
-            JOptionPane.showMessageDialog(jd_administrarR, "Usuario Registro modificado con éxito");
+            tf_nombre.setText("");
+            sp_poder.setValue(1);
+            tf_año.setText("");
+            cb_raza.setSelectedIndex(1);
+            JOptionPane.showMessageDialog(this, "Ser Vivo modificado con éxito");
         }
     }//GEN-LAST:event_bt_cmMouseClicked
 
@@ -323,6 +374,9 @@ public class FrameP extends javax.swing.JFrame {
         bt_cm.setText("Agregar");
         sv.setVisible(false);
         cb_sv.setVisible(false);
+        cb1.setVisible(false);
+        cb_universo1.setVisible(false);
+
         pn_agregar.setVisible(true);
         pn_eliminar.setVisible(false);
     }//GEN-LAST:event_bt_agregarSVMouseClicked
@@ -337,6 +391,7 @@ public class FrameP extends javax.swing.JFrame {
 
     private void bt_eliminarSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_eliminarSVMouseClicked
         ListarTabla();
+
         pn_agregar.setVisible(false);
         pn_eliminar.setVisible(true);
     }//GEN-LAST:event_bt_eliminarSVMouseClicked
@@ -357,11 +412,17 @@ public class FrameP extends javax.swing.JFrame {
         sv.setVisible(true);
         cb_sv.setVisible(true);
         bt_cm.setText("Modificar");
-        
+        cb1.setVisible(true);
+        cb_universo1.setVisible(true);
+
         ListarCB(1);
         ListarCB(2);
         pn_agregar.setVisible(true);
     }//GEN-LAST:event_bt_modificarSVMouseClicked
+
+    private void cb_universo1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_universo1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_universo1ItemStateChanged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -444,7 +505,7 @@ public class FrameP extends javax.swing.JFrame {
     private int ID() {
         for (Universo u : au.getListaUniverso()) {
             if (!u.getSeres().isEmpty()) {
-                ID = u.getSeres().size()-1;
+                ID = u.getSeres().size() - 1;
             }
         }
         return ID;
@@ -458,14 +519,20 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JButton bt_eliminarSV;
     private javax.swing.JButton bt_modificarSV;
     private javax.swing.JLabel cb;
+    private javax.swing.JLabel cb1;
     private javax.swing.JComboBox<String> cb_raza;
     private javax.swing.JComboBox<String> cb_sv;
     private javax.swing.JComboBox<String> cb_universo;
+    private javax.swing.JComboBox<String> cb_universo1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
