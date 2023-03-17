@@ -10,6 +10,8 @@ public class SerVivo implements Serializable{
     private int year; 
     private String procedencia; 
     private String raza; 
+    
+    private static final long SerialVersionUID=777L;
 
     public SerVivo() {
     }

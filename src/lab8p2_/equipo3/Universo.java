@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class Universo implements Serializable{
     private String nombre; 
     private ArrayList<SerVivo> seres = new ArrayList();
+    
+    private static final long SerialVersionUID=777L;
 
     public Universo() {
     }

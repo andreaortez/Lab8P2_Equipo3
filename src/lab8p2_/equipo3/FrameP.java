@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 public class FrameP extends javax.swing.JFrame {
 
     admUniverso au = new admUniverso("./universos.a&t");
-    Dba db = new Dba("./lab8.mdb");
+    Dba db = new Dba("./lab8.accdb");
 
     int ID = 0;
 
@@ -372,7 +372,7 @@ public class FrameP extends javax.swing.JFrame {
 
         db.conectar();
         try {
-            db.query.execute("INSERT INTO Universo" + " (Nombre,# Seres Vivos)" + " VALUES ('" + nombre + "', '" + "" + "')");
+            db.query.execute("INSERT INTO Universo" + " (Nombre)" + " VALUES ('" + nombre + "')");
             db.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
