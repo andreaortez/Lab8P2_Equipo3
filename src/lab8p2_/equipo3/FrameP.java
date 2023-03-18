@@ -7,12 +7,12 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import javax.swing.JTable;
 
 public class FrameP extends javax.swing.JFrame {
 
     admUniverso au = new admUniverso("./universos.a&t");
     Dba db = new Dba("./lab8.accdb");
-
     int ID = 0;
 
     public FrameP() {
@@ -27,6 +27,7 @@ public class FrameP extends javax.swing.JFrame {
 
         pn_agregar.setVisible(false);
         pn_eliminar.setVisible(false);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -34,11 +35,17 @@ public class FrameP extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        pn_cargar = new javax.swing.JPanel();
+        cb2 = new javax.swing.JLabel();
+        cb_universo2 = new javax.swing.JComboBox<>();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tb_sv = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         bt_agregarSV = new javax.swing.JButton();
         bt_modificarSV = new javax.swing.JButton();
         bt_eliminarSV = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        bt_cargar = new javax.swing.JButton();
         bt_agregarU = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         bt_modificarU = new javax.swing.JButton();
@@ -70,6 +77,40 @@ public class FrameP extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        pn_cargar.setBackground(new java.awt.Color(255, 255, 255));
+        pn_cargar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cb2.setBackground(new java.awt.Color(0, 0, 0));
+        cb2.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
+        cb2.setForeground(new java.awt.Color(0, 0, 0));
+        cb2.setText("Universo");
+        pn_cargar.add(cb2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 85, -1));
+
+        cb_universo2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_universo2ItemStateChanged(evt);
+            }
+        });
+        pn_cargar.add(cb_universo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 158, -1));
+        pn_cargar.add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 560, 30));
+
+        tb_sv.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "ID", "Poder", "Años", "Raza"
+            }
+        ));
+        jScrollPane2.setViewportView(tb_sv);
+
+        pn_cargar.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 550, 360));
+
+        jPanel1.add(pn_cargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 600, 500));
+
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -97,8 +138,8 @@ public class FrameP extends javax.swing.JFrame {
         });
         jPanel2.add(bt_eliminarSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 339, -1, -1));
 
-        jButton4.setText("Guardar");
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 437, -1, -1));
+        bt_cargar.setText("Cargar");
+        jPanel2.add(bt_cargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 437, -1, -1));
 
         bt_agregarU.setText("Agregar Universo");
         bt_agregarU.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -225,6 +266,9 @@ public class FrameP extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tb_servivos);
+        if (tb_servivos.getColumnModel().getColumnCount() > 0) {
+            tb_servivos.getColumnModel().getColumn(4).setHeaderValue("Universo de Procedencia");
+        }
 
         bt_eliminar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         bt_eliminar.setText("Eliminar");
@@ -287,6 +331,9 @@ public class FrameP extends javax.swing.JFrame {
                             + " VALUES ('" + tf_nombre.getText() + "', '" + Integer.parseInt(sp_poder.getValue().toString())
                             + "', '" + Integer.valueOf(tf_año.getText()) + "', '" + cb_universo.getSelectedItem().toString()
                             + "', '" + cb_raza.getSelectedItem().toString() + "')");
+
+                    int ser = au.getListaUniverso().get(index).getSeres().size() + 1;
+                    db.query.execute("UPDATE Universo set # seres vivo='" + ser + "' where ID=" + (index + 1));
                     db.commit();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -333,7 +380,7 @@ public class FrameP extends javax.swing.JFrame {
 
             db.conectar();
             try {
-                db.query.execute("update Ser Vivos set Nombre=" + tf_nombre.getText() + ", Poder=" + sp_poder.getValue().toString() + ", Años="
+                db.query.execute("UPDATE Ser Vivos set Nombre=" + tf_nombre.getText() + ", Poder=" + sp_poder.getValue().toString() + ", Años="
                         + tf_año.getText() + "Universo=" + cb_universo1.getSelectedItem().toString() + ", Raza=" + cb_raza.getSelectedItem().toString()
                         + "where ID=" + id);
                 db.commit();
@@ -352,12 +399,22 @@ public class FrameP extends javax.swing.JFrame {
 
     private void bt_eliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_eliminarMouseClicked
         if (tb_servivos.getSelectedRow() >= 0) {
-            int a = JOptionPane.showConfirmDialog(tb_servivos, "¿Desea eliminar Ser Vivo?", "Eliminar Ser Vivo", YES_NO_OPTION);
+            int a = JOptionPane.showConfirmDialog(this, "¿Desea eliminar Ser Vivo?", "Eliminar Ser Vivo", YES_NO_OPTION);
             if (a == 0) {
                 au.getListaUniverso().remove(tb_servivos.getSelectedRow());
                 au.escribirArchivo();
-                ListarTabla();
-                JOptionPane.showMessageDialog(tb_servivos, "Ser Vivo eliminado con éxito");
+
+                db.conectar();
+                try {
+                    db.query.execute("DELETE from Seres Vivos where Id=" + (tb_servivos.getSelectedRow() + 1));
+                    db.commit();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                db.desconectar();
+
+                ListarTabla(tb_servivos,1);
+                JOptionPane.showMessageDialog(this, "Ser Vivo eliminado con éxito");
             }
         }
     }//GEN-LAST:event_bt_eliminarMouseClicked
@@ -399,7 +456,7 @@ public class FrameP extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_agregarUMouseClicked
 
     private void bt_eliminarSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_eliminarSVMouseClicked
-        ListarTabla();
+        ListarTabla(tb_servivos,1);
 
         pn_agregar.setVisible(false);
         pn_eliminar.setVisible(true);
@@ -438,9 +495,10 @@ public class FrameP extends javax.swing.JFrame {
         au.getListaUniverso().get(pos).setNombre(nombre);
         au.escribirArchivo();
 
+        int id = pos + 1;
         db.conectar();
         try {
-            db.query.execute("update Universo set nombre=" + nombre + "where ID=" + pos + 1);
+            db.query.execute("UPDATE Universo set nombre='" + nombre + "' where ID=" + id);
             db.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -458,7 +516,7 @@ public class FrameP extends javax.swing.JFrame {
 
         db.conectar();
         try {
-            db.query.execute("delete from Universo where ID=" + pos + 1);
+            db.query.execute("DELETE from Universo where ID=" + (pos + 1));
             db.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -467,6 +525,10 @@ public class FrameP extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(this, "Universo eliminado éxitosamente");
     }//GEN-LAST:event_bt_eliminarUMouseClicked
+
+    private void cb_universo2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_universo2ItemStateChanged
+        ListarTabla(tb_sv,2);
+    }//GEN-LAST:event_cb_universo2ItemStateChanged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -511,20 +573,36 @@ public class FrameP extends javax.swing.JFrame {
         return cad;
     }
 
-    private void ListarTabla() {
+    private void ListarTabla(JTable temp, int tipo) {
         try {
-            tb_servivos.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{},
-                    new String[]{"Nombre", "ID", "Poder", "Años", "Universo de Procedencia", "Raza"}));
+            if (tipo == 1) {
+                temp.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{},
+                        new String[]{"Nombre", "ID", "Poder", "Años", "Universo de Procedencia", "Raza"}));
 
-            for (Universo u : au.getListaUniverso()) {
-                for (SerVivo ser : u.getSeres()) {
-                    Object[] row = {((SerVivo) ser).getNombre(), ((SerVivo) ser).getID(), ((SerVivo) ser).getPoder(), ((SerVivo) ser).getYear(),
-                        ((SerVivo) ser).getProcedencia(), ((SerVivo) ser).getRaza()};
-                    DefaultTableModel modelo = (DefaultTableModel) tb_servivos.getModel();
-                    modelo.addRow(row);
-                    tb_servivos.setModel(modelo);
+                for (Universo u : au.getListaUniverso()) {
+                    for (SerVivo ser : u.getSeres()) {
+                        Object[] row = {((SerVivo) ser).getNombre(), ((SerVivo) ser).getID(), ((SerVivo) ser).getPoder(), ((SerVivo) ser).getYear(),
+                            ((SerVivo) ser).getProcedencia(), ((SerVivo) ser).getRaza()};
+                        DefaultTableModel modelo = (DefaultTableModel) temp.getModel();
+                        modelo.addRow(row);
+                        temp.setModel(modelo);
+                    }
+                }
+            } else {
+                temp.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{},
+                        new String[]{"Nombre", "ID", "Poder", "Años", "Raza"}));
+
+                for (Universo u : au.getListaUniverso()) {
+                    for (SerVivo ser : u.getSeres()) {
+                        Object[] row = {((SerVivo) ser).getNombre(), ((SerVivo) ser).getID(), ((SerVivo) ser).getPoder(), ((SerVivo) ser).getYear(),
+                            ((SerVivo) ser).getRaza()};
+                        DefaultTableModel modelo = (DefaultTableModel) temp.getModel();
+                        modelo.addRow(row);
+                        temp.setModel(modelo);
+                    }
                 }
             }
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -569,6 +647,7 @@ public class FrameP extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_agregarSV;
     private javax.swing.JButton bt_agregarU;
+    private javax.swing.JButton bt_cargar;
     private javax.swing.JButton bt_cm;
     private javax.swing.JButton bt_eliminar;
     private javax.swing.JButton bt_eliminarSV;
@@ -577,11 +656,12 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JButton bt_modificarU;
     private javax.swing.JLabel cb;
     private javax.swing.JLabel cb1;
+    private javax.swing.JLabel cb2;
     private javax.swing.JComboBox<String> cb_raza;
     private javax.swing.JComboBox<String> cb_sv;
     private javax.swing.JComboBox<String> cb_universo;
     private javax.swing.JComboBox<String> cb_universo1;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> cb_universo2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -590,12 +670,16 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel pn_agregar;
+    private javax.swing.JPanel pn_cargar;
     private javax.swing.JPanel pn_eliminar;
     private javax.swing.JSpinner sp_poder;
     private javax.swing.JLabel sv;
     private javax.swing.JTable tb_servivos;
+    private javax.swing.JTable tb_sv;
     private javax.swing.JTextField tf_año;
     private javax.swing.JTextField tf_nombre;
     // End of variables declaration//GEN-END:variables
