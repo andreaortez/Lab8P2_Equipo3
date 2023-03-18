@@ -45,7 +45,44 @@ public class Dba {
            e.printStackTrace();
        }
     }
-    
+    /**
+     * bt_eliminarUMouseClicked
+     * au.getListaUniverso().remove(pos);
+     * 
+     * db.conectar();
+        try {
+            db.query.execute("delete from Universo where Nombre=au.getListaUniverso().get(pos).getNombre()");
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+        * 
+        * 
+        
+        * 
+     * bt_eliminarMouseClicked
+     * db.conectar();
+     * 
+     * String n = au.getListaUniverso().get(tb_servivos.getSelectedRow()).getNombre();
+     * int id = 
+     * db.query.execute("select cuenta,nombre,direccion from alumnos");
+            ResultSet rs = db.query.getResultSet();
+            while (rs.next()) {
+                System.out.println(rs.getInt(1) + "--->" + rs.getString(3));
+            }
+            * 
+        try {
+            db.query.execute("delete from Seres Vivos where Nombre=au.getListaUniverso().get(pos).getNombre()");
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+        * 
+     * 
+     * 
+     */
    
     
 }

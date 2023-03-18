@@ -43,7 +43,6 @@ public class FrameP extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         bt_modificarU = new javax.swing.JButton();
         bt_eliminarU = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         pn_agregar = new javax.swing.JPanel();
         cb_universo = new javax.swing.JComboBox<>();
         cb = new javax.swing.JLabel();
@@ -64,6 +63,7 @@ public class FrameP extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_servivos = new javax.swing.JTable();
         bt_eliminar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,11 +128,6 @@ public class FrameP extends javax.swing.JFrame {
             }
         });
         jPanel2.add(bt_eliminarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
-
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("-----------------------------------------");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 394, 200, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 500));
 
@@ -258,6 +253,11 @@ public class FrameP extends javax.swing.JFrame {
         );
 
         jPanel1.add(pn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 600, 500));
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("-----------------------------------------");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 394, 200, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
