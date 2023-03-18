@@ -99,10 +99,7 @@ public class FrameP extends javax.swing.JFrame {
 
         tb_sv.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "ID", "Poder", "Años", "Raza"
@@ -123,7 +120,7 @@ public class FrameP extends javax.swing.JFrame {
                 bt_agregarSVMouseClicked(evt);
             }
         });
-        jPanel2.add(bt_agregarSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 218, -1, -1));
+        jPanel2.add(bt_agregarSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         bt_modificarSV.setText("Modificar Ser Vivo");
         bt_modificarSV.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -131,7 +128,7 @@ public class FrameP extends javax.swing.JFrame {
                 bt_modificarSVMouseClicked(evt);
             }
         });
-        jPanel2.add(bt_modificarSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 274, -1, -1));
+        jPanel2.add(bt_modificarSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
 
         bt_eliminarSV.setText("Eliminar Ser Vivo");
         bt_eliminarSV.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,7 +136,7 @@ public class FrameP extends javax.swing.JFrame {
                 bt_eliminarSVMouseClicked(evt);
             }
         });
-        jPanel2.add(bt_eliminarSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
+        jPanel2.add(bt_eliminarSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, -1, -1));
 
         bt_cargar.setText("Cargar");
         bt_cargar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,7 +144,7 @@ public class FrameP extends javax.swing.JFrame {
                 bt_cargarMouseClicked(evt);
             }
         });
-        jPanel2.add(bt_cargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, -1, -1));
+        jPanel2.add(bt_cargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, -1, -1));
 
         bt_agregarU.setText("Agregar Universo");
         bt_agregarU.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -155,12 +152,12 @@ public class FrameP extends javax.swing.JFrame {
                 bt_agregarUMouseClicked(evt);
             }
         });
-        jPanel2.add(bt_agregarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 31, -1, -1));
+        jPanel2.add(bt_agregarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("-----------------------------------------");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 200, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 200, -1));
 
         bt_modificarU.setText("Modificar Universo");
         bt_modificarU.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,7 +165,7 @@ public class FrameP extends javax.swing.JFrame {
                 bt_modificarUMouseClicked(evt);
             }
         });
-        jPanel2.add(bt_modificarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+        jPanel2.add(bt_modificarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
 
         bt_eliminarU.setText("Eliminar Universo");
         bt_eliminarU.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -176,15 +173,20 @@ public class FrameP extends javax.swing.JFrame {
                 bt_eliminarUMouseClicked(evt);
             }
         });
-        jPanel2.add(bt_eliminarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
+        jPanel2.add(bt_eliminarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("-----------------------------------------");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 200, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 200, -1));
 
         bt_busqueda.setText("Búsqueda");
-        jPanel2.add(bt_busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, -1, -1));
+        bt_busqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_busquedaMouseClicked(evt);
+            }
+        });
+        jPanel2.add(bt_busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 500));
 
@@ -341,7 +343,8 @@ public class FrameP extends javax.swing.JFrame {
                 au.getListaUniverso().get(index).getSeres().add(new SerVivo(tf_nombre.getText(), ID(), Integer.parseInt(sp_poder.getValue().toString()),
                         Integer.parseInt(tf_año.getText()), cb_universo.getSelectedItem().toString(), cb_raza.getSelectedItem().toString()));
                 au.escribirArchivo();
-
+                ID++;
+                
                 db.conectar();
                 try {
                     db.query.execute("INSERT INTO Seres Vivos" + " (Nombre,Poder,Años,Universo,Raza)"
@@ -553,14 +556,44 @@ public class FrameP extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_eliminarUMouseClicked
 
     private void cb_universo2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_universo2ItemStateChanged
-        ListarTabla(tb_sv, 2);
+        Universo u = (Universo) cb_universo2.getSelectedItem();
+        DefaultTableModel modelo = (DefaultTableModel) tb_sv.getModel();
+        modelo.setRowCount(0);
+        admBarra h = new admBarra(pb, u, tb_sv);
+        Thread proceso1 = new Thread(h);
+        proceso1.start();
     }//GEN-LAST:event_cb_universo2ItemStateChanged
 
     private void bt_cargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cargarMouseClicked
         pn_cargar.setVisible(true);
+        pn_agregar.setVisible(false);
+        pn_eliminar.setVisible(false);
 
         ListarCB(cb_universo2, 1);
+        tb_sv.removeAll();
     }//GEN-LAST:event_bt_cargarMouseClicked
+
+    private void bt_busquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_busquedaMouseClicked
+        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del Ser Vivo");
+        int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese posición del universo a eliminar"));
+
+        boolean valid = false;
+        for (Universo u : au.getListaUniverso()) {
+            for (SerVivo v : u.getSeres()) {
+                if (v.getNombre().equals(nombre) && v.getID() == id) {
+                    valid = true;
+                }
+            }
+        }
+        if (valid == true) {
+            JOptionPane.showMessageDialog(null,
+                    "El Ser Vivo esta registrado en el sistema");
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "El Ser Vivo no esta registrado en el sistema");
+        }
+
+    }//GEN-LAST:event_bt_busquedaMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -620,25 +653,8 @@ public class FrameP extends javax.swing.JFrame {
                         temp.setModel(modelo);
                     }
                 }
-            } else {
-                temp.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{},
-                        new String[]{"Nombre", "ID", "Poder", "Años", "Raza"}));
-
-                for (Universo u : au.getListaUniverso()) {
-                    for (SerVivo ser : u.getSeres()) {
-                        Object[] row = {((SerVivo) ser).getNombre(), ((SerVivo) ser).getID(), ((SerVivo) ser).getPoder(), ((SerVivo) ser).getYear(),
-                            ((SerVivo) ser).getRaza()};
-                        DefaultTableModel modelo = (DefaultTableModel) temp.getModel();
-                        modelo.addRow(row);
-                        temp.setModel(modelo);
-
-                        pb.setMaximum(u.getSeres().size());
-                        admBarra h = new admBarra(pb);
-                        Thread proceso1 = new Thread(h);
-                        proceso1.start();
-                    }
-                }
             }
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

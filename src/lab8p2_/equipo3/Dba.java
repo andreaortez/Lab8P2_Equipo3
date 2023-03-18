@@ -131,23 +131,7 @@ public class Dba {
      * 
      */
     
-    public void Metodo(admUniverso au,String nombre, int id){
-        boolean valid = false; 
-        for (Universo u : au.getListaUniverso()) {
-            for (SerVivo v : u.getSeres()) {
-                if (v.getNombre().equals(nombre)&& v.getID()==id) {
-                    valid = true; 
-                }
-            }
-        }
-        if (valid==true) {
-            JOptionPane.showMessageDialog(null, 
-                    "El Ser Vivo esta registrado en el sistema");
-        }else{
-            JOptionPane.showMessageDialog(null, 
-                    "El Ser Vivo no esta registrado en el sistema");
-        }
-    }
+    
    
     
 }
