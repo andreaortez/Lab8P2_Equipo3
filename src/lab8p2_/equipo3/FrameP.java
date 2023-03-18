@@ -283,8 +283,7 @@ public class FrameP extends javax.swing.JFrame {
                 au.escribirArchivo();
 
                 try {
-                    db.query.execute("INSERT INTO Seres Vivos"
-                            + " (Nombre,Poder,Años,Universo,Raza)"
+                    db.query.execute("INSERT INTO Seres Vivos" + " (Nombre,Poder,Años,Universo,Raza)"
                             + " VALUES ('" + tf_nombre.getText() + "', '" + Integer.parseInt(sp_poder.getValue().toString())
                             + "', '" + Integer.valueOf(tf_año.getText()) + "', '" + cb_universo.getSelectedItem().toString()
                             + "', '" + cb_raza.getSelectedItem().toString() + "')");
