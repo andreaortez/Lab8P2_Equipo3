@@ -5,6 +5,7 @@ import javax.swing.JProgressBar;
 
 public class admBarra extends Thread{
     private JProgressBar barra;
+    
 
     public admBarra(JProgressBar barra) {
         this.barra = barra;
