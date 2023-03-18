@@ -282,6 +282,18 @@ public class FrameP extends javax.swing.JFrame {
                         Integer.parseInt(tf_año.getText()), cb_universo.getSelectedItem().toString(), cb_raza.getSelectedItem().toString()));
                 au.escribirArchivo();
 
+                try {
+                    db.query.execute("INSERT INTO Seres Vivos"
+                            + " (Nombre,Poder,Años,Universo,Raza)"
+                            + " VALUES ('" + tf_nombre.getText() + "', '" + Integer.parseInt(sp_poder.getValue().toString())
+                            + "', '" + Integer.valueOf(tf_año.getText()) + "', '" + cb_universo.getSelectedItem().toString()
+                            + "', '" + cb_raza.getSelectedItem().toString() + "')");
+                    db.commit();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                db.desconectar();
+
                 tf_nombre.setText("");
                 sp_poder.setValue(1);
                 tf_año.setText("");
@@ -322,21 +334,9 @@ public class FrameP extends javax.swing.JFrame {
 
             db.conectar();
             try {
-                db.query.execute("update Ser Vivos set Nombre=" + tf_nombre.getText() + ", Poder=" + sp_poder.getValue().toString() + ", Años=" +
-                        tf_año.getText() + "Universo=" + cb_universo1.getSelectedItem().toString() + ", Raza=" + cb_raza.getSelectedItem().toString()
+                db.query.execute("update Ser Vivos set Nombre=" + tf_nombre.getText() + ", Poder=" + sp_poder.getValue().toString() + ", Años="
+                        + tf_año.getText() + "Universo=" + cb_universo1.getSelectedItem().toString() + ", Raza=" + cb_raza.getSelectedItem().toString()
                         + "where ID=" + id);
-                db.commit();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-            db.desconectar();
-
-            try {
-                db.query.execute("INSERT INTO Seres Vivos"
-                        + " (Nombre,Poder,Años,Universo,Raza)"
-                        + " VALUES ('" + tf_nombre.getText() + "', '" + Integer.parseInt(sp_poder.getValue().toString())
-                        + "', '" + Integer.valueOf(tf_año.getText()) + "', '" + cb_universo.getSelectedItem().toString()
-                        + "', '" + cb_raza.getSelectedItem().toString() + "')");
                 db.commit();
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -437,6 +437,16 @@ public class FrameP extends javax.swing.JFrame {
         String nombre = JOptionPane.showInputDialog("Ingrese nuevo nombre del universo");
 
         au.getListaUniverso().get(pos).setNombre(nombre);
+        au.escribirArchivo();
+
+        db.conectar();
+        try {
+            db.query.execute("update Universo set nombre=" + nombre + "where ID=" + pos + 1);
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
 
         JOptionPane.showMessageDialog(this, "Universo modificado éxitosamente");
     }//GEN-LAST:event_bt_modificarUMouseClicked
@@ -445,6 +455,16 @@ public class FrameP extends javax.swing.JFrame {
         int pos = Integer.parseInt(JOptionPane.showInputDialog(ListarUniversos() + "Ingrese posición del universo a eliminar"));
 
         au.getListaUniverso().remove(pos);
+        au.escribirArchivo();
+
+        db.conectar();
+        try {
+            db.query.execute("delete from Universo where ID=" + pos + 1);
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
 
         JOptionPane.showMessageDialog(this, "Universo eliminado éxitosamente");
     }//GEN-LAST:event_bt_eliminarUMouseClicked
