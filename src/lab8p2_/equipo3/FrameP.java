@@ -38,7 +38,7 @@ public class FrameP extends javax.swing.JFrame {
         pn_cargar = new javax.swing.JPanel();
         cb2 = new javax.swing.JLabel();
         cb_universo2 = new javax.swing.JComboBox<>();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        pb = new javax.swing.JProgressBar();
         jScrollPane2 = new javax.swing.JScrollPane();
         tb_sv = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -50,7 +50,6 @@ public class FrameP extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         bt_modificarU = new javax.swing.JButton();
         bt_eliminarU = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         pn_agregar = new javax.swing.JPanel();
         cb_universo = new javax.swing.JComboBox<>();
         cb = new javax.swing.JLabel();
@@ -71,6 +70,7 @@ public class FrameP extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_servivos = new javax.swing.JTable();
         bt_eliminar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,7 +92,7 @@ public class FrameP extends javax.swing.JFrame {
             }
         });
         pn_cargar.add(cb_universo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 158, -1));
-        pn_cargar.add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 560, 30));
+        pn_cargar.add(pb, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 560, 30));
 
         tb_sv.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -169,11 +169,6 @@ public class FrameP extends javax.swing.JFrame {
             }
         });
         jPanel2.add(bt_eliminarU, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
-
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("-----------------------------------------");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 394, 200, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 500));
 
@@ -303,6 +298,11 @@ public class FrameP extends javax.swing.JFrame {
 
         jPanel1.add(pn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 600, 500));
 
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("-----------------------------------------");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 394, 200, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -413,7 +413,7 @@ public class FrameP extends javax.swing.JFrame {
                 }
                 db.desconectar();
 
-                ListarTabla(tb_servivos,1);
+                ListarTabla(tb_servivos, 1);
                 JOptionPane.showMessageDialog(this, "Ser Vivo eliminado con éxito");
             }
         }
@@ -456,7 +456,7 @@ public class FrameP extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_agregarUMouseClicked
 
     private void bt_eliminarSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_eliminarSVMouseClicked
-        ListarTabla(tb_servivos,1);
+        ListarTabla(tb_servivos, 1);
 
         pn_agregar.setVisible(false);
         pn_eliminar.setVisible(true);
@@ -527,7 +527,7 @@ public class FrameP extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_eliminarUMouseClicked
 
     private void cb_universo2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_universo2ItemStateChanged
-        ListarTabla(tb_sv,2);
+        ListarTabla(tb_sv, 2);
     }//GEN-LAST:event_cb_universo2ItemStateChanged
 
     public static void main(String args[]) {
@@ -599,13 +599,18 @@ public class FrameP extends javax.swing.JFrame {
                         DefaultTableModel modelo = (DefaultTableModel) temp.getModel();
                         modelo.addRow(row);
                         temp.setModel(modelo);
+
+                        pb.setMaximum(u.getSeres().size());
+                        admBarra h = new admBarra(pb);
+                        Thread proceso1 = new Thread(h);
+                        proceso1.start();
                     }
                 }
             }
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
     }
 
     private void ListarCB(int tipo) {
@@ -670,9 +675,9 @@ public class FrameP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JProgressBar pb;
     private javax.swing.JPanel pn_agregar;
     private javax.swing.JPanel pn_cargar;
     private javax.swing.JPanel pn_eliminar;
